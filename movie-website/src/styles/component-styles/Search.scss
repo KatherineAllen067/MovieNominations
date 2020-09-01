@@ -1,0 +1,33 @@
+@import '../partials.scss';
+
+
+.search-bar{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.search{
+    font-family:$medium;
+    padding:0.5rem;
+}
+
+input{
+    width:20rem;
+    height:2rem;
+    border-radius:2rem;
+    border:1px solid yellow;
+    outline:none;
+    &:active{
+        border:blue;
+    }
+    &:hover{
+        border:blue;
+    }
+    &::placeholder{
+        font-family:$medium;
+        color:yellow;
+        padding-left:5rem;
+    }
+}

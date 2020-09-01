@@ -1,0 +1,19 @@
+@import '../partials.scss';
+
+
+.nominations{
+    display:flex;
+    justify-content: space-evenly;
+
+    &-title{
+        font-family:$bold;
+        padding-left:1rem;
+    }
+    &-card{
+        background-color:#ffffff;
+        width:13rem;
+        height:21rem;
+        border-radius: 2rem;
+        padding:0.5rem;
+    }
+}
