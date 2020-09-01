@@ -3,14 +3,44 @@
 
 .search-bar{
     width:100%;
+    height:10rem;
     display:flex;
     flex-direction:column;
     align-items: center;
+    justify-content: center;
 }
 
 .search{
+    width:100%;
+}
+.search-title{
     font-family:$medium;
     padding:0.5rem;
+}
+
+.search__movie{
+    width:100%;
+    display:flex;
+    justify-content: space-evenly;
+    padding:1rem;
+}
+
+.search__movie--save{
+    color:white;
+    width:10rem;
+    height:2rem;
+    border-radius:2rem;
+    background-color:$blue;
+    border:none;
+}
+
+.search__movie--cancel{
+    color:white;
+    width:10rem;
+    height:2rem;
+    border-radius:2rem;
+    background-color:$blue;
+    border:none;
 }
 
 input{
@@ -20,14 +50,15 @@ input{
     border:1px solid yellow;
     outline:none;
     &:active{
-        border:blue;
+        outline:none;
+        border:1px solid $blue;
     }
     &:hover{
         border:blue;
     }
     &::placeholder{
         font-family:$medium;
-        color:yellow;
-        padding-left:5rem;
+        color:$blue;
+        padding-left:4rem;
     }
 }

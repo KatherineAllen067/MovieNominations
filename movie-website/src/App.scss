@@ -1,6 +1,11 @@
+@import './styles/partials.scss';
+
 *,
 *:before,
 *:after {
   color: #ffffff;
-  background-color:navy;
+}
+
+body{
+  background-color:#FFAA00;
 }
