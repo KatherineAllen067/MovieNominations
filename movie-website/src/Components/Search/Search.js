@@ -3,31 +3,37 @@ import '../../styles/component-styles/Search.scss';
 
 
 class Search extends Component{
+    // searchKey = (e) => {
+    //     e.preventDefault();
+    //     let keyword = e.target.value;
+    //     this.setState({
+    //       search: keyword,
+    //     });
+    //     console.log(keyword);
+    // };
+    render(props){
 
 
-    //get request to movie with a search Poster, Year, Title
-
-    //post request to post for a nomination
-    render(){
         return(
             <>
-            <div className="search-bar">
                 <form>
-                <div className="search">
-                <label className="search-title">Search for Movies to Nominate
-                </label>
-                    <input name="search__movie" placeholder="What movie would you like to nominate?">
-                    </input>
-                    <div className="search__movie">
-                        <button type="submit" className="search__movie--save">NOMINATE</button>
-                        <button type="submit" className="search__movie--cancel">CANCEL</button>
+                    <div className="search-bar">
+                        <div className="search">
+                        <label className="search-title">Search by Movie Title
+                        </label>
+                            <input 
+                             name="search"
+                             type="text"
+                             placeholder="What movie would you like to nominate?"
+                            //  onChange={this.searchKey}
+                             >
+                            </input>
+                        </div>
                     </div>
-                </div>
                 </form>
-            </div>
-            
+
             </>
-        )
+            )
     }
 }
 
