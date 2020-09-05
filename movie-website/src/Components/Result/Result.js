@@ -1,43 +1,25 @@
-import React, { Component } from "react";
-import { v4 as uuid } from 'uuid';
+import React from "react";
+import '../../styles/component-styles/Result.scss';
+import {Link} from "react-router-dom";
 
-
-class Result extends Component{
-    render(props){
-        console.log(this.props.result)
-        // let searchResult = this.props.result;
-        // console.log(searchResult)
-        return(
-        <>
-            <h1> Search Results</h1>  
-            <div className="results">
-                {/* { 
-                searchResult.map(m=>{
-                    return( <ResultList
-                    key={uuid()}
-                    title={m.Title}
-                    year={m.Year}
-                    />
-                    )
-                })}    */}
-            </div>
-        </>
-        )
-    }
-}
-
-function ResultList(props){
+function Result (props){
+    // console.log(props.id)
     return(
-        <div>
-            {/* <h2>{props.title}</h2>
-            <h2>{props.year}</h2> */}
-            <button type="submit" 
-                className="search__movie--save"
-                onClick={this.publishNew}>
-                NOMINATE
+
+        <div className="result-column">
+            <img src={props.poster} alt={props.title} className="result-poster"/>
+            <h2>{props.title}</h2>
+            <h2 className="year">{props.year}</h2>
+            <Link to={"/"+props.id}>
+            <button type="submit" className="search__movie--save">
+            NOMINATE
             </button>
+            </Link>
         </div>
     )
 }
+
+
+    
 
 export default Result;

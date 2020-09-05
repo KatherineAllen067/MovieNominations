@@ -1,0 +1,19 @@
+@import '../partials.scss';
+
+.year{
+    color:white;
+}
+
+.result-poster{
+    width:150px;
+    height:200px;
+}
+
+.result-column{
+    width:500px;
+    padding:1rem;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+
+}
