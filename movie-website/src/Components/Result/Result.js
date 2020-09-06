@@ -3,7 +3,6 @@ import '../../styles/component-styles/Result.scss';
 import {Link} from "react-router-dom";
 
 function Result (props){
-    // console.log(props.id)
     return(
 
         <div className="result-column">

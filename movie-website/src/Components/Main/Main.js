@@ -18,20 +18,21 @@ var movie="Star Wars";
 
 class Main extends Component{
 
-    state={ result: [], list:[], search:'', searchSubmit:null }
+    state={ result: [], list:[], search:'' }
 
     searchChange = (e) =>{
         e.preventDefault();
         this.setState({search:e.target.value}) 
     }
 
-    searchEntered =(e)=>{
+    submitHandler =(e)=>{
         e.preventDefault();
-        this.setState({searchSubmit:this.state.search})
+        console.log("state:", this.state.search)
     }
     
-    componentDidMount(){ 
-
+    componentDidMount(movieTitle){ 
+        movieTitle=this.state.search;
+        console.log(movieTitle)
         axios.get(`${request}${movie}${KEY}`)
            .then(res=>{
                let movies = res.data.Search                   
@@ -80,7 +81,7 @@ class Main extends Component{
 
         return(
             <>
-            <form onSubmit={this.searchEntered}>
+            <form>
                 <div className="search-bar">
                     <div className="search">
                     <label className="search-title">
@@ -95,6 +96,7 @@ class Main extends Component{
                     >
                     </input>
                     </div>
+                    <button type="submit">Find Title</button>
                 </div>
             </form>
             <div>
