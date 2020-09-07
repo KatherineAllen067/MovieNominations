@@ -1,75 +1,31 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
+import axios from "axios";
 import '../../styles/component-styles/Main.scss';
 import Result from '../Result/Result.js';
 import NominationList from '../NominationList/NominationList.js';
-//the value from the search bar is going to be the value used in the axios GET to then get title and year
-//target value of the search just getting the title year from the array
-//list of movie needs to button to NOMINATE
-//make GET request for movie and title>> pass values to nomination as an object 
-//POST movie and title to array of search results    
-//from the search results target the object by id
-//then  update the nominate list by pushing the specifc onject to the list 
-
 var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
-var movie="Star Wars";
 
-class Main extends Component{
+function Main(props){
+    const[ search, setSearch] = useState('');
+    const [ result, setResult] = useState([]);
+    // const [nominees, setNominees] = useState([]);
 
-    state={ result: [], list:[], search:'' }
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        console.log(`submitting new title ${search}` )
+        axios.get(`${request}${search}${KEY}`)
+        .then(res=>{
+            console.log(res.data.Search)
+            setResult( res.data.Search)
+            })
+            .catch(error=>{
+                console.log('error in GET', error)
+            });
 
-    searchChange = (e) =>{
-        e.preventDefault();
-        this.setState({search:e.target.value}) 
-    }
-
-    submitHandler =(e)=>{
-        e.preventDefault();
-        console.log("state:", this.state.search)
-    }
-    
-    componentDidMount(movieTitle){ 
-        movieTitle=this.state.search;
-        console.log(movieTitle)
-        axios.get(`${request}${movie}${KEY}`)
-           .then(res=>{
-               let movies = res.data.Search                   
-               // console.log(movies)
-               this.setState({
-                   result:movies,
-               })
-               })
-               .catch(error=>{
-                   console.log('error in GET', error)
-               });
-
-    }
-    componentDidUpdate(prevProps){
-        console.log(this.state.result)
-        if(prevProps.match.params.movieid !== this.props.match.params.movieid){
-            // axios.get(`http://www.omdbapi.com/?s=batman&apikey=1c650e1b`)
-            //     .then(results=>{
-                    //  const newMovie= this.state.result.filter(n =>{n.imdbID === this.props.match.params.movieid})
-                    //  console.log(newMovie)
-                    // const nominee ={
-                    //         poster: newMovies.Poster,
-                    //         title: newMovies.Title,
-                    //         year: newMovies.Year
-                    //     }
-
-                        // this.setState({
-                        //     list: [nominee]
-                        // })    
-                //  })
-        }}
-    
-    
-    render(){
-
-        // addNominee = (e)=>{
-        //     e.preventDefault()
+    } 
+        // if(prevProps.match.params.movieid !== this.props.match.params.movieid){
         //     const myNomination={
         //         // key={uuid()},
         //         // poster={props.poster},
@@ -81,49 +37,40 @@ class Main extends Component{
 
         return(
             <>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="search-bar">
                     <div className="search">
                     <label className="search-title">
-                        Search by Movie Title
+                        Search by Title
                     </label>
                     <input 
-                        value={this.state.search}
-                        // name="search"
                         type="text"
+                        value={search}
                         placeholder="Movie Title"
-                        onChange={this.searchChange}
+                        onChange={e=>setSearch(e.target.value)}
                     >
                     </input>
                     </div>
-                    <button type="submit">Find Title</button>
+                    <button type="submit" >Find Title</button>
                 </div>
             </form>
             <div>
-            <h1>Movies Search Results</h1>
-            {
-                this.state.result.map(m=>{
-                    return(
-                        <Result
-                        key={uuid()}
-                        id={m.imdbID}
-                        poster={m.Poster}
-                        title={m.Title}
-                        year={m.Year}
-                        list={this.state.list}
-                        />
-                    )
-                })
-            }
+            <h1>Search Results</h1>
+            <div className="result-column">
+            {result.map(m=>(
+                <Result
+                key={uuid()}
+                poster={m.Poster}
+                title={m.Title}
+                year={m.Year}
+                id={m.imdbID}                   
+                />
+                ))}
+            </div> 
             </div>
-            <NominationList
-            // search={this.state.search} 
-            // result={this.state.result}
-            // list={this.state.list}
-             />
+            <NominationList />
             </>
         )
-    }
 }
 
 export default Main;
