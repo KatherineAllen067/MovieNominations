@@ -4,10 +4,9 @@
     width:100%;
     height:11.75rem;
     display:flex;
-    align-items:center;
+    align-items:$middle;
     background-image: url(../assets/images/vhs-background.jpg);
     background-size:cover;
-
 }
 
 h1.title{
@@ -16,7 +15,7 @@ h1.title{
     font-family:$medium;
     padding:0.5rem;
     display:flex;
-    justify-content: center;
+    justify-content: $middle;
 }
 
 .icon{

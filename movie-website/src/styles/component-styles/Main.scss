@@ -1,72 +1,38 @@
 @import '../partials.scss';
 
-
-.search-bar{
-    width:100%;
-    height:10rem;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    justify-content: center;
-}
-
 .search{
-    width:100%;
-}
-.search-title{
-    font-family:$medium;
-    padding:0.5rem;
-}
-
-.search__movie{
-    width:100%;
+    width:$full;
+    height:6rem;
     display:flex;
-    justify-content: space-evenly;
-    padding:1rem;
-}
-
-.search__movie--save{
-    color:white;
-    width:10rem;
-    height:2rem;
-    border-radius:2rem;
-    background-color:$blue;
-    border:none;
-}
-
-.search__movie--cancel{
-    color:white;
-    width:10rem;
-    height:2rem;
-    border-radius:2rem;
-    background-color:$blue;
-    border:none;
+    align-items: $middle;
+    &__bar{
+        width:50%;
+        @include flex-even;
+        margin:0 auto;
+    }
+    &__movie{
+        width:$full;
+        @include flex-even;
+        padding:1rem;
+    }
 }
 
 input{
-    color:$blue;
+    color:black;
     width:20rem;
-    height:2rem;
-    border-radius:2rem;
-    border:1px solid yellow;
+    height:1.5rem;
+    border-radius:1.5rem;
     outline:none;
-    &:active{
-        outline:none;
-        border:1px solid $blue;
-    }
-    &:hover{
-        border:blue;
-    }
     &::placeholder{
-        font-family:$medium;
-        color:$blue;
-        padding-left:4rem;
+        font-family:$bold;
+        font-size:1rem;
+        color:black;
+        padding-left:7.5rem;
     }
 }
 
 .lowerPage{
-    display:flex;
-    justify-content: center;
+    @include flex-even;
     padding:1rem;
 }
 
@@ -75,7 +41,34 @@ input{
     height:200px;
 }
 
-.nominate__card{
-    border:1px solid lime;
-    border-radius:1.5rem;
+.nominate{
+    width: 16rem;
+    padding: 3rem;
+    @include flex-align;
+    &__card{
+        width:15rem;
+        @include card-border;
+        @include flex-align;
+        padding: 0.5rem;
+    }
 }
+
+.delete{
+    width:7rem;
+    color:black;
+    font-family: $medium;
+    background-color:lime;
+    border-radius:1.5rem;
+    padding:0.25rem;
+}
+
+.title{
+    font-family:$bold;
+}
+
+.result{
+    width: 15rem;
+    padding: 3rem;
+    @include flex-align;
+}
+

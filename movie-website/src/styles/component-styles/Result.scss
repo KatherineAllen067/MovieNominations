@@ -12,8 +12,14 @@
 .result-column{
     width:500px;
     padding:1rem;
-    display:flex;
-    flex-direction: column;
-    align-items:center;
+    @include flex-align;
+}
 
+.delete{
+    width:7rem;
+    color:black;
+    font-family: $medium;
+    background-color:lime;
+    border-radius: 1.5rem;
+    padding:0.25rem;
 }
