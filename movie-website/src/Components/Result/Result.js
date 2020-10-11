@@ -1,8 +1,9 @@
 import React from "react";
 import '../../styles/component-styles/Result.scss';
 
-
 function Result (props){
+
+    //list of results that come from search
     return(
         <>
          <div className="result-column">
