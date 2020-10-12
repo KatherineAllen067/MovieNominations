@@ -7,6 +7,9 @@ import Search from '../Search/Search.js';
 import NominationList from '../NominationList/NominationList.js';
 var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
+//TUESDAY MORNING: nomList & resultList & Nominate button, search all separate components
+//check all component functionality 
+//where is the flow down and state bubble up
 
 function Main(){
     //what are we searching for?
@@ -35,6 +38,8 @@ function Main(){
     } 
 
     useEffect (()=>{
+        //if there is a movieId then using the search find that movie and the exact id
+        //put that movie into the nomination list
         if(movieid){
             axios.get(`${request}${search}${KEY}`)
             .then(res=>{
@@ -50,6 +55,10 @@ function Main(){
     const handleDelete =(evt, value)=>{
         evt.preventDefault();
         //delete a movie from the nomination list on click
+    }
+
+    const handleNewMovie=(id)=>{
+        setMovieid(id);
     }
 
     return(
@@ -70,7 +79,9 @@ function Main(){
                         title={m.Title}
                         year={m.Year}
                         poster={m.Poster} 
-                        onClick={value=>setMovieid(value)}                             
+                        movieHandler={handleNewMovie}
+                        // onClick={value=>setMovieid(value)
+                        }                             
                     />))}
                 </div> 
             </div>
@@ -83,9 +94,11 @@ function Main(){
                 {nominate.map(n=>(
                     <NominationList 
                     key={uuid()}
+                    id={n.select.imdbID}
                     title={n.select.Title}
                     year={n.select.Year}
                     poster={n.select.Poster}
+                    movieHandler={handleNewMovie}
                     />
                 ))}
             </div>
