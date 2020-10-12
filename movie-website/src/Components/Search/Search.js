@@ -7,7 +7,7 @@ function Search({submitAction, movieSearch, setMovieSearch}){
         <div className="search">
             <div className="search__bar">
                 <label className="title">
-                Search by Title
+                    Search by Title
                 </label>
                 <input 
                     type="text"

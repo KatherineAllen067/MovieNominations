@@ -4,14 +4,21 @@ import axios from "axios";
 import '../../styles/component-styles/Main.scss';
 import Result from '../Result/Result.js';
 import Search from '../Search/Search.js';
+import NominationList from '../NominationList/NominationList.js';
 var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
 
 function Main(){
+    //what are we searching for?
     const [ search, setSearch ] = useState('');
+    //what is the result of the search array
     const [ result, setResult ] = useState([]); 
+    //which movie Id are we adding to the list?
     const [ movieid, setMovieid ] = useState('');
+    //the list of nominations 
     const [ nominate, setNominate ] = useState([]);
+    //is nominated or not nominated? true/false value 
+    const [ nominee, setNominee ] = useState(false);
 
     const handleSubmit = (event) =>{
         event.preventDefault();
@@ -31,7 +38,7 @@ function Main(){
         if(movieid){
             axios.get(`${request}${search}${KEY}`)
             .then(res=>{
-                //filter through data and show all that is the movieId
+                //filter through data and show all that is the movieId ?? should this be find instead...
                 var select = res.data.Search.filter(movie => movie.imdbID === movieid)
                 setNominate([...nominate,{
                     select,                 
@@ -63,7 +70,7 @@ function Main(){
                         title={m.Title}
                         year={m.Year}
                         poster={m.Poster} 
-                        onClick={value=>setMovieid(value)}          
+                        onClick={value=>setMovieid(value)}                             
                     />))}
                 </div> 
             </div>
@@ -74,11 +81,12 @@ function Main(){
                     <h2 className="title">Your Nominations are Full</h2>
                 }
                 {nominate.map(n=>(
-                <div className="nominate__card">
-                    <h2 key={uuid()}>{n.select.Title}</h2>
-                    <h3>{n.select.Year}</h3>
-                    <img src={n.select.Poster} alt="movie poster" className="poster" />
-                </div>
+                    <NominationList 
+                    key={uuid()}
+                    title={n.select.Title}
+                    year={n.select.Year}
+                    poster={n.select.Poster}
+                    />
                 ))}
             </div>
         </div>
