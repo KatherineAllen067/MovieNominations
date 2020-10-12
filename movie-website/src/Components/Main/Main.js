@@ -8,7 +8,7 @@ var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
 
 function Main(){
-    const[ search, setSearch ] = useState('');
+    const [ search, setSearch ] = useState('');
     const [ result, setResult ] = useState([]); 
     const [ movieid, setMovieid ] = useState('');
     const [ nominate, setNominate ] = useState([]);
@@ -16,20 +16,23 @@ function Main(){
     const handleSubmit = (event) =>{
         event.preventDefault();
         console.log(`submitting new title ${search}`)
+        //make request with the search title
         axios.get(`${request}${search}${KEY}`)
         .then(res=>{
+            //set the results to the data from the request
             setResult( res.data.Search || [])
             })
             .catch(error=>{
                 console.log('error in GET', error)
             });
     } 
+
     useEffect (()=>{
         if(movieid){
             axios.get(`${request}${search}${KEY}`)
             .then(res=>{
                 //filter through data and show all that is the movieId
-                var select = res.data.Search.filter(movie=> movie.imdbID === movieid)
+                var select = res.data.Search.filter(movie => movie.imdbID === movieid)
                 setNominate([...nominate,{
                     select,                 
                 }])
@@ -39,12 +42,7 @@ function Main(){
 
     const handleDelete =(evt, value)=>{
         evt.preventDefault();
-        for (let i=0; i <nominate.length; i++){
-           if( i.imdbID === value){
-               nominate.splice(i, 1)
-           }
-        return
-       }
+        //delete a movie from the nomination list on click
     }
 
     return(
@@ -66,8 +64,7 @@ function Main(){
                         year={m.Year}
                         poster={m.Poster} 
                         onClick={value=>setMovieid(value)}          
-                    />
-                    ))}
+                    />))}
                 </div> 
             </div>
             <div className="nominate">
@@ -81,8 +78,6 @@ function Main(){
                     <h2 key={uuid()}>{n.select.Title}</h2>
                     <h3>{n.select.Year}</h3>
                     <img src={n.select.Poster} alt="movie poster" className="poster" />
-                    <button value={n.select.imdbID} onSubmit={handleDelete}
-                    className="delete">Delete Nomination</button>
                 </div>
                 ))}
             </div>
