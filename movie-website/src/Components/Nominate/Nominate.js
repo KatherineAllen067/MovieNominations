@@ -8,7 +8,10 @@ function Nominate(props){
     //when button is false says nominate movie is not apart of nomination list
     return(
         <>
-        <button className="delete" value={props.movie} >
+        <button className="delete" 
+        value={props.movie} 
+        // onSubmit={movieHandler(props.movie)}
+        >
             Nominate
         </button>
         </>

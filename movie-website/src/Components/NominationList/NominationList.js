@@ -12,7 +12,7 @@ function NominationList(props){
             <h3>{props.year}</h3>
             <Button 
                 movie={props.id}
-                onClick={movieHandler(props.id)}  
+                // onClick={props.movieHandler()}  
             />
         </div>
     );

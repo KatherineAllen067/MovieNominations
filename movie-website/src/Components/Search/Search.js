@@ -1,9 +1,9 @@
 import React from "react";
 
-function Search({submitAction, movieSearch, setMovieSearch}){
+function Search(props){
 
     return(
-    <form onSubmit={submitAction}>
+    <form onSubmit={props.submitAction}>
         <div className="search">
             <div className="search__bar">
                 <label className="title">
@@ -11,9 +11,9 @@ function Search({submitAction, movieSearch, setMovieSearch}){
                 </label>
                 <input 
                     type="text"
-                    value={movieSearch}
+                    value={props.movieSearch}
                     placeholder="Movie Title"
-                    onChange={e=>setMovieSearch(e.target.value)}
+                    onChange={e=>props.setMovieSearch(e.target.value)}
                 >
                 </input>
                 <button type="submit" className="delete">Find Title</button>

@@ -12,7 +12,7 @@ function Result (props){
             <h3 className="year">{props.year}</h3>
             <Button 
                 movie={props.id}
-                onClick={movieHandler(props.id)}
+                // onClick={props.movieHandler()}
             />
         </div> 
         </>   
