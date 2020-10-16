@@ -5,41 +5,42 @@ import '../../styles/component-styles/Main.scss';
 import Result from '../Result/Result.js';
 import Search from '../Search/Search.js';
 import NominationList from '../NominationList/NominationList.js';
+import DefaultPoster from '../../styles/assets/images/vhs-background.jpg';
 var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
 //TUESDAY MORNING: nomList & resultList & Nominate button, search all separate components
 //check all component functionality 
 //where is the flow down and state bubble up
 //look at movie handler function it takes a movieId
-//console log what each state is getting {}[]""truth
+//console log what each state is getting {}[]""true
 
 function Main(){
-    //what are we searching for?
-    const [ search, setSearch ] = useState('');
-    //what is the result of the search array
-    const [ result, setResult ] = useState([]); 
+    const [ word, setWord ] = useState('');
+    const [ searchResult, setSearchResult ] = useState([]); 
     //which movie Id are we adding to the list?
-    const [ movieid, setMovieid ] = useState('');
+    // const [ movieid, setMovieid ] = useState('');
     //the list of nominations 
-    const [ nominate, setNominate ] = useState([]);
+    const [ nominationList, setNominationList ] = useState([]);
     //is nominated or not nominated? true/false value 
-    const [ nominee, setNominee ] = useState(false);
+    // const [ nominee, setNominee ] = useState(false);
 
-    const handleSubmit = (event) =>{
+    //if title is selected setNominee to true and disable button
+    //push object from search Result to nominationList 
+
+    const findMovie = (event) =>{
         event.preventDefault();
-        console.log(`submitting new title ${search}`)
+        console.log(`submitting new title ${word}`)
         //make request with the search title
-        axios.get(`${request}${search}${KEY}`)
-        .then(res=>{
-            console.log(res.data.Search)
-            //set the results to the data from the request
-            setResult( res.data.Search || [])
-            console.log(result)
-            })
-                .catch(error=>{
-                    console.log('error in GET', error)
-                });
-    } 
+        axios.get(`${request}${word}${KEY}`)
+            .then(res=>{
+                console.log(res.data.Search)
+                //set the results to the data from the request if it has the word in the title
+                    setSearchResult(res.data.Search || [])
+                          
+                })
+                .catch(error=>{console.log("there is an error with search", error)})
+                console.log(searchResult)
+            }               
 
     // useEffect (()=>{
     //     //if there is a movieId then using the search find that movie and the exact id
@@ -58,53 +59,66 @@ function Main(){
     //     }          
     // }, [ movieid, search ])
 
-    const handleDelete =(evt, value)=>{
-        evt.preventDefault();
-        //delete a movie from the nomination list on click
-    }
+    // const handleDelete =(evt, value)=>{
+    //     evt.preventDefault();
+    //     //delete a movie from the nomination list on click
+    // }
+    //
 
-    const handleNewMovie=(id)=>{
-        setMovieid(id);
+    //need to make the array not move the selected when the length it 4
+
+    const selectNewMovie=(id)=>{
+        let nominees= [];
+        //on submit/click find the movie id from the search results and push that movie object to nomination list 
+        let selected = searchResult.find(m => m.imdbID === id)
+        console.log(selected) 
+        //I only want it to move selected to the nominees array if the array length is less than 4 
+        if(nominees.length < 4){
+            nominees.push(selected);
+            setNominationList([...nominationList, ...nominees]) 
+        }
+        else {
+            console.log("nominations full")
+        }
+        console.log(nominationList)
     }
 
     return(
         <>
         <Search 
-            submitAction={handleSubmit}
-            movieSearch={search}
-            setMovieSearch={setSearch}
+            submitAction={findMovie}
+            movieSearch={word}
+            setMovieSearch={setWord}
         />
         <div className="lowerPage">
             <div className="result">
-            <h2 className="title">Search Results</h2>
                 <div className="result-column">
-                    {/* {result.map(m=>(
+                    {searchResult.map(m=>(
                         <Result
                             key={uuid()}
                             id={m.imdbID}  
                             title={m.Title}
                             year={m.Year}
-                            poster={m.Poster} 
-                            movieHandler={handleNewMovie()}                         
-                    />))} */}
+                            poster={m.Poster ==="N/A" ?
+                                DefaultPoster:
+                                m.Poster}
+                            movieFunction={selectNewMovie}                         
+                    />))}
                 </div> 
             </div>
             <div className="nominate">
-                {
-                    nominate.length < 5 ?
-                    <h2 className="title">Your Personal Nominations</h2> : 
-                    <h2 className="title">Your Nominations are Full</h2>
-                }
-                {/* {nominate.map(n=>(
+                {nominationList.map(n=>(
                     <NominationList 
                         key={uuid()}
-                        id={n.select.imdbID}
-                        title={n.select.Title}
-                        year={n.select.Year}
-                        poster={n.select.Poster}
-                        movieHandler={handleNewMovie()}
+                        id={n.imdbID}
+                        title={n.Title}
+                        year={n.Year}
+                        poster={n.Poster ==="N/A" ?
+                                DefaultPoster:
+                                n.Poster}
+                        movieFunction={selectNewMovie}
                     />
-                ))} */}
+                ))}
             </div>
         </div>
         </>

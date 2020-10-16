@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/component-styles/Nominate.scss';
 
-function Nominate(props){
+function Nominate({ movie, movieHandler }){
     //set the value of the nomination button to the movie iD
     //two states true/false
     //when true button says remove and movie is put in nomination list
@@ -9,8 +9,8 @@ function Nominate(props){
     return(
         <>
         <button className="delete" 
-        value={props.movie} 
-        // onSubmit={movieHandler(props.movie)}
+        value={movie} 
+        onClick={()=>{movieHandler(movie)}}
         >
             Nominate
         </button>
