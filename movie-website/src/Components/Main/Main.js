@@ -24,44 +24,37 @@ function Main(){
         axios.get(`${request}${word}${KEY}`)
             .then(res=>{
                 // console.log(res.data.Search)
-                //set the results to the data from the request if it has the word in the title
+                //set the results to the data from the request
                 setSearchResult(res.data.Search || [])
                           
                 })
                 .catch(error=>{console.log("there is an error with search", error)})
-                console.log(searchResult)
             }               
         
         const addMovie=(id)=>{
             //create array to manipulate state
-            let nominees= [];
+            let nominees= [...nominationList];
             //find the selected id in the search results and move it to the nomination
             let selected = searchResult.find(m => m.imdbID === id); 
-            nominees.push(selected);
-            //update state
-            setNominationList([...nominationList, ...nominees])   
-            console.log(nominationList);
-            console.log(nominees);
+            //check if selected is in the array before pushing to array so there are no double nominations
+                if(nominees.indexOf(selected) == -1){
+                    nominees.push(selected);
+                    setNominationList([...nominees]) 
+                }         
         }
 
         const removeMovie=(id)=>{
             //create array to manipulate state
             let nominees= [...nominationList];
             //find id in the nomlist
-            //delselected being recognized 
-            let deselected = nominees.find(movie => movie.imdbID === id)
-            console.log(deselected)
-            //i have the movie I want to remove i need to remove it from the state and update state
             for(var i=0; i < nominees.length; i++){
                 //if the deselected matches the nominees index id then remove it
                 if(nominees[i].imdbID === id){
                     nominees.splice(i, 1)
+                    //update state with the deleted nomination
                     setNominationList([ ...nominees])
-                }else console.log("id not found")
+                }else console.log("movie id not found")
             }
-            //check for the id in the nomination List       
-            //remove the deselected from the nominationList 
-            //then set new nomination list
         }
 
     return(
@@ -96,8 +89,8 @@ function Main(){
                         title={n.Title}
                         year={n.Year}
                         poster={n.Poster ==="N/A" ?
-                                DefaultPoster:
-                                n.Poster}
+                            DefaultPoster:
+                            n.Poster}
                         movieFunction={removeMovie}
                         nominationList={nominationList}
                     />
