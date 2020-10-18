@@ -10,7 +10,7 @@ var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
 
 function Main(){
-    //word search for
+    //search word/words 
     const [ word, setWord ] = useState('');
     //the list of search results
     const [ searchResult, setSearchResult ] = useState([]); 
@@ -46,18 +46,18 @@ function Main(){
 
         const removeMovie=(id)=>{
             //create array to manipulate state
-            let nominees= [];
+            let nominees= [...nominationList];
             //find id in the nomlist
             //delselected being recognized 
-            let deselected = nominationList.find(movie => movie.imdbID === id)
+            let deselected = nominees.find(movie => movie.imdbID === id)
             console.log(deselected)
             //i have the movie I want to remove i need to remove it from the state and update state
             for(var i=0; i < nominees.length; i++){
                 //if the deselected matches the nominees index id then remove it
-                if(nominees[i].imdbID === deselected){
+                if(nominees[i].imdbID === id){
                     nominees.splice(i, 1)
-                    setNominationList([...nominationList, ...nominees])
-                }
+                    setNominationList([ ...nominees])
+                }else console.log("id not found")
             }
             //check for the id in the nomination List       
             //remove the deselected from the nominationList 
