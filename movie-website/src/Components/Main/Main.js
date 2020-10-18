@@ -33,9 +33,9 @@ function Main(){
         //make request with the search title
         axios.get(`${request}${word}${KEY}`)
             .then(res=>{
-                console.log(res.data.Search)
+                // console.log(res.data.Search)
                 //set the results to the data from the request if it has the word in the title
-                    setSearchResult(res.data.Search || [])
+                setSearchResult(res.data.Search || [])
                           
                 })
                 .catch(error=>{console.log("there is an error with search", error)})
@@ -66,21 +66,15 @@ function Main(){
     //
 
     //need to make the array not move the selected when the length it 4
-
+    //on submit/click find the movie id from the search results and push that movie object to nomination list 
+    //I only want it to move selected to the nominees array if the array length is less than 4 
     const selectNewMovie=(id)=>{
         let nominees= [];
-        //on submit/click find the movie id from the search results and push that movie object to nomination list 
         let selected = searchResult.find(m => m.imdbID === id)
         console.log(selected) 
-        //I only want it to move selected to the nominees array if the array length is less than 4 
-        if(nominees.length < 4){
             nominees.push(selected);
-            setNominationList([...nominationList, ...nominees]) 
-        }
-        else {
-            console.log("nominations full")
-        }
-        console.log(nominationList)
+            setNominationList([...nominationList, ...nominees])   
+            console.log(nominationList)
     }
 
     return(
@@ -102,8 +96,9 @@ function Main(){
                             poster={m.Poster ==="N/A" ?
                                 DefaultPoster:
                                 m.Poster}
-                            movieFunction={selectNewMovie}                         
-                    />))}
+                            movieFunction={selectNewMovie}  
+                            nominationList={nominationList}                       
+                        />))}
                 </div> 
             </div>
             <div className="nominate">
@@ -117,6 +112,7 @@ function Main(){
                                 DefaultPoster:
                                 n.Poster}
                         movieFunction={selectNewMovie}
+                        nominationList={nominationList}
                     />
                 ))}
             </div>

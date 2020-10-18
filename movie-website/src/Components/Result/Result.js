@@ -13,6 +13,7 @@ function Result (props){
             <Button 
                 movie={props.id}
                 movieHandler={props.movieFunction}
+                nominationList={props.nominationList}
             />
         </div> 
         </>   

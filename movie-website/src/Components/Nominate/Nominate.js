@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/component-styles/Nominate.scss';
 
-function Nominate({ movie, movieHandler }){
+function Nominate({ movie, movieHandler, nominationList }){
     //set the value of the nomination button to the movie iD
     //two states true/false
     //when true button says remove and movie is put in nomination list
@@ -10,7 +10,9 @@ function Nominate({ movie, movieHandler }){
         <>
         <button className="delete" 
         value={movie} 
-        onClick={()=>{movieHandler(movie)}}
+        onClick={ nominationList.length <= 4 ? ()=>{movieHandler(movie)}:
+            console.log("nominations full")
+        }
         >
             Nominate
         </button>
