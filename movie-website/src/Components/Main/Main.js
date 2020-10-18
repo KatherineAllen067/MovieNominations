@@ -8,24 +8,13 @@ import NominationList from '../NominationList/NominationList.js';
 import DefaultPoster from '../../styles/assets/images/vhs-background.jpg';
 var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
-//TUESDAY MORNING: nomList & resultList & Nominate button, search all separate components
-//check all component functionality 
-//where is the flow down and state bubble up
-//look at movie handler function it takes a movieId
-//console log what each state is getting {}[]""true
 
 function Main(){
     const [ word, setWord ] = useState('');
+    //the list of search results
     const [ searchResult, setSearchResult ] = useState([]); 
-    //which movie Id are we adding to the list?
-    // const [ movieid, setMovieid ] = useState('');
     //the list of nominations 
     const [ nominationList, setNominationList ] = useState([]);
-    //is nominated or not nominated? true/false value 
-    // const [ nominee, setNominee ] = useState(false);
-
-    //if title is selected setNominee to true and disable button
-    //push object from search Result to nominationList 
 
     const findMovie = (event) =>{
         event.preventDefault();
@@ -42,32 +31,6 @@ function Main(){
                 console.log(searchResult)
             }               
 
-    // useEffect (()=>{
-    //     //if there is a movieId then using the search find that movie and the exact id
-    //     //put that movie into the nomination list
-    //     if(movieid){
-    //         console.log(movieid)
-    //         axios.get(`${request}${search}${KEY}`)
-    //         .then(res=>{
-    //             //filter through data and show all that is the movieId ?? should this be find instead...
-    //             var select = res.data.Search.filter(movie => movie.imdbID === movieid)
-    //             setNominate([...nominate,{
-    //                 select,               
-    //             }])
-    //             console.log(nominate)
-    //         })
-    //     }          
-    // }, [ movieid, search ])
-
-    // const handleDelete =(evt, value)=>{
-    //     evt.preventDefault();
-    //     //delete a movie from the nomination list on click
-    // }
-    //
-
-    //need to make the array not move the selected when the length it 4
-    //on submit/click find the movie id from the search results and push that movie object to nomination list 
-    //I only want it to move selected to the nominees array if the array length is less than 4 
     const selectNewMovie=(id)=>{
         let nominees= [];
         let selected = searchResult.find(m => m.imdbID === id)
@@ -75,6 +38,12 @@ function Main(){
             nominees.push(selected);
             setNominationList([...nominationList, ...nominees])   
             console.log(nominationList)
+    }
+
+    const removeMovie=(id)=>{
+        //check for the id in the nomination List
+        //if the id is in the nomination list show remove button
+        //click to splice the nomination List/nominees array and remove the movie from the list
     }
 
     return(
