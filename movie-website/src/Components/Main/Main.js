@@ -10,6 +10,7 @@ var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
 
 function Main(){
+    //word search for
     const [ word, setWord ] = useState('');
     //the list of search results
     const [ searchResult, setSearchResult ] = useState([]); 
@@ -30,21 +31,38 @@ function Main(){
                 .catch(error=>{console.log("there is an error with search", error)})
                 console.log(searchResult)
             }               
-
-    const selectNewMovie=(id)=>{
-        let nominees= [];
-        let selected = searchResult.find(m => m.imdbID === id)
-        console.log(selected) 
+        
+        const addMovie=(id)=>{
+            //create array to manipulate state
+            let nominees= [];
+            //find the selected id in the search results and move it to the nomination
+            let selected = searchResult.find(m => m.imdbID === id); 
             nominees.push(selected);
+            //update state
             setNominationList([...nominationList, ...nominees])   
-            console.log(nominationList)
-    }
+            console.log(nominationList);
+            console.log(nominees);
+        }
 
-    const removeMovie=(id)=>{
-        //check for the id in the nomination List
-        //if the id is in the nomination list show remove button
-        //click to splice the nomination List/nominees array and remove the movie from the list
-    }
+        const removeMovie=(id)=>{
+            //create array to manipulate state
+            let nominees= [];
+            //find id in the nomlist
+            //delselected being recognized 
+            let deselected = nominationList.find(movie => movie.imdbID === id)
+            console.log(deselected)
+            //i have the movie I want to remove i need to remove it from the state and update state
+            for(var i=0; i < nominees.length; i++){
+                //if the deselected matches the nominees index id then remove it
+                if(nominees[i].imdbID === deselected){
+                    nominees.splice(i, 1)
+                    setNominationList([...nominationList, ...nominees])
+                }
+            }
+            //check for the id in the nomination List       
+            //remove the deselected from the nominationList 
+            //then set new nomination list
+        }
 
     return(
         <>
@@ -65,7 +83,7 @@ function Main(){
                             poster={m.Poster ==="N/A" ?
                                 DefaultPoster:
                                 m.Poster}
-                            movieFunction={selectNewMovie}  
+                            movieFunction={addMovie}  
                             nominationList={nominationList}                       
                         />))}
                 </div> 
@@ -80,7 +98,7 @@ function Main(){
                         poster={n.Poster ==="N/A" ?
                                 DefaultPoster:
                                 n.Poster}
-                        movieFunction={selectNewMovie}
+                        movieFunction={removeMovie}
                         nominationList={nominationList}
                     />
                 ))}
