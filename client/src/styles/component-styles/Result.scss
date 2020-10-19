@@ -2,26 +2,32 @@
 @import '../mixin.scss';
 @import '../mediabreaks.scss';
 
-.year{
-    color:white;
-}
-
-.poster{
-    width:150px;
-    height:200px;
-}
-
-.result-column{
-    @include tablet{
-        display:flex;
-    }
-}
-
-.result-cell{
-    width:70%;
-    padding:1rem;
+.result{
     @include flex-align;
+        @include tablet{
+            width: 90%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 0 auto;
+            }
+            &-cell{
+                @include flex-align;
+                flex-basis: 10rem;
+                padding:1rem;
+                &__poster{
+                    width:150px;
+                    height:200px;
+                }
+                &__year{
+                    color:white;
+                }
+                &__title{
+                    font-size: 1rem;
+                }
+            }
 }
+
 
 .delete{
     width:7rem;

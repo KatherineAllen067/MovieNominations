@@ -59,46 +59,44 @@ function Main(){
 
     return(
         <>
-        <Search 
-            submitAction={findMovie}
-            movieSearch={word}
-            setMovieSearch={setWord}
-        />
-        <div className="lowerPage">
-            <div className="result">
-                <div className="result-column">
-                    {searchResult.map(m=>(
-                        <Result
-                            key={uuid()}
-                            id={m.imdbID}  
-                            title={m.Title}
-                            year={m.Year}
-                            poster={m.Poster ==="N/A" ?
-                                DefaultPoster:
-                                m.Poster}
-                            movieFunction={addMovie}  
-                            nominationList={nominationList}                       
-                        />))}
+            <Search 
+                submitAction={findMovie}
+                movieSearch={word}
+                setMovieSearch={setWord}
+            />
+            <div className="lowerPage">
+                <div className="result">
+                        {searchResult.map(m=>(
+                            <Result
+                                key={uuid()}
+                                id={m.imdbID}  
+                                title={m.Title}
+                                year={m.Year}
+                                poster={m.Poster ==="N/A" ?
+                                    DefaultPoster:
+                                    m.Poster}
+                                movieFunction={addMovie}  
+                                nominationList={nominationList}                       
+                            />))}
                 </div> 
+                <div className="nominate">
+                    {nominationList.map(n=>(
+                        <NominationList 
+                            key={uuid()}
+                            id={n.imdbID}
+                            title={n.Title}
+                            year={n.Year}
+                            poster={n.Poster ==="N/A" ?
+                                DefaultPoster:
+                                n.Poster}
+                            movieFunction={removeMovie}
+                            nominationList={nominationList}
+                        />
+                    ))}
+                </div>
             </div>
-            <div className="nominate">
-                {nominationList.map(n=>(
-                    <NominationList 
-                        key={uuid()}
-                        id={n.imdbID}
-                        title={n.Title}
-                        year={n.Year}
-                        poster={n.Poster ==="N/A" ?
-                            DefaultPoster:
-                            n.Poster}
-                        movieFunction={removeMovie}
-                        nominationList={nominationList}
-                    />
-                ))}
-            </div>
-        </div>
         </>
-    )
+        )
 }
 
 export default Main;

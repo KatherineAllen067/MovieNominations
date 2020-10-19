@@ -40,7 +40,6 @@
 
 .lowerPage{
     justify-content: space-evenly;
-    padding:1rem;
 }
 
 .poster{
@@ -71,7 +70,5 @@
     font-family:$bold;
 }
 
-.result{
-    @include flex-align;
-}
+
 

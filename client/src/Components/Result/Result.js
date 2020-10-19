@@ -7,9 +7,9 @@ function Result (props){
     return(
         <>
          <div className="result-cell">
-            <img src={props.poster} alt="movie poster" className="poster"/>
-            <h2>{props.title}</h2>
-            <h3 className="year">{props.year}</h3>
+            <img src={props.poster} alt="movie poster" className="result-cell__poster"/>
+            <h3 className="result-cell__title">{props.title}</h3>
+            <h3 className="result-cell__year">{props.year}</h3>
             <Button 
                 movie={props.id}
                 movieHandler={props.movieFunction}
