@@ -1,0 +1,17 @@
+@import './partials.scss';
+
+@mixin flex-align{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin flex-even{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+@mixin card-border{
+    border:1px solid lime;
+    border-radius:1.5rem;
+}

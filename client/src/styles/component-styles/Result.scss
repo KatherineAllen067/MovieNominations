@@ -1,0 +1,33 @@
+@import '../partials.scss';
+@import '../mixin.scss';
+@import '../mediabreaks.scss';
+
+.year{
+    color:white;
+}
+
+.poster{
+    width:150px;
+    height:200px;
+}
+
+.result-column{
+    @include tablet{
+        display:flex;
+    }
+}
+
+.result-cell{
+    width:70%;
+    padding:1rem;
+    @include flex-align;
+}
+
+.delete{
+    width:7rem;
+    color:black;
+    font-family: $medium;
+    background-color:lime;
+    border-radius: 1.5rem;
+    padding:0.25rem;
+}

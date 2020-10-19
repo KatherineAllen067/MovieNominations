@@ -1,0 +1,77 @@
+@import '../partials.scss';
+@import '../mixin.scss';
+@import '../mediabreaks.scss';
+
+.search{
+    width:$full;
+    height:6rem;
+    display:flex;
+    align-items: $middle;
+    &__bar{
+        width:80%;
+        @include flex-align;
+        margin:0 auto;
+        @include tablet{
+            width:90%;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+    &__movie{
+        width:$full;
+        @include flex-even;
+        padding:1rem;
+    }
+}
+
+.search__input{
+    color:black;
+    width:16rem;
+    height:1.5rem;
+    border-radius:1.5rem;
+    outline:none;
+    &::placeholder{
+        font-family:$bold;
+        font-size:1rem;
+        color:black;
+        padding-left:6rem;
+    }
+}
+
+.lowerPage{
+    justify-content: space-evenly;
+    padding:1rem;
+}
+
+.poster{
+    width:150px;
+    height:200px;
+}
+
+.nominate{
+    @include flex-align;
+    &__card{
+        width:15rem;
+        @include card-border;
+        @include flex-align;
+        padding: 0.5rem;
+    }
+}
+
+.delete{
+    width:7rem;
+    color:black;
+    font-family: $medium;
+    background-color:lime;
+    border-radius:1.5rem;
+    padding:0.25rem;
+}
+
+.title{
+    font-family:$bold;
+}
+
+.result{
+    @include flex-align;
+}
+
