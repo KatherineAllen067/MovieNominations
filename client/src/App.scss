@@ -12,6 +12,13 @@
   margin:0;
 }
 
-body{
-  background-color:black;
+.app{
+  width:100%;
+  height:1000vmax;
+  background:
+  linear-gradient( #892168, rgba(255,0,0,0) 70.71%),
+  linear-gradient( #FF3B57, rgba(0,255,0,0) 70.71%);
+  @include tablet{
+    height:300vmax;
+  }
 }
