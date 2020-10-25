@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
 import axios from "axios";
 import '../../styles/component-styles/Main.scss';
+import Carousel from 'react-bootstrap/Carousel'
 import Result from '../Result/Result.js';
 import Search from '../Search/Search.js';
 import NominationList from '../NominationList/NominationList.js';
@@ -59,12 +60,29 @@ function Main(){
 
     return(
         <>
+        <Carousel>
+            {nominationList.map(n=>(
+                <NominationList 
+                    key={uuid()}
+                    id={n.imdbID}
+                    title={n.Title}
+                    year={n.Year}
+                    poster={n.Poster ==="N/A" ?
+                        DefaultPoster:
+                        n.Poster}
+                    movieFunction={removeMovie}
+                    nominationList={nominationList}
+                />
+            ))}
+        </Carousel>
             <Search 
                 submitAction={findMovie}
                 movieSearch={word}
                 setMovieSearch={setWord}
             />
             <div className="lowerPage">
+            {/* <div className="nominate"> */}
+                {/* </div> */}
                 <div className="result">
                         {searchResult.map(m=>(
                             <Result
@@ -79,21 +97,6 @@ function Main(){
                                 nominationList={nominationList}                       
                             />))}
                 </div> 
-                <div className="nominate">
-                    {nominationList.map(n=>(
-                        <NominationList 
-                            key={uuid()}
-                            id={n.imdbID}
-                            title={n.Title}
-                            year={n.Year}
-                            poster={n.Poster ==="N/A" ?
-                                DefaultPoster:
-                                n.Poster}
-                            movieFunction={removeMovie}
-                            nominationList={nominationList}
-                        />
-                    ))}
-                </div>
             </div>
         </>
         )

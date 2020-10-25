@@ -1,5 +1,5 @@
 import React from 'react';
-// import Button from '../Nominate/Nominate.js';
+import Carousel from 'react-bootstrap/Carousel'
 
 function NominationList(props){
     //list of movies nominated
