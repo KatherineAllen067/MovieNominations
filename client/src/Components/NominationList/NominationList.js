@@ -2,7 +2,6 @@ import React from 'react';
 
 function NominationList({ movieFunction, poster, year, title, id, nominationList, showModal}){
         //list of movies nominated
-        //check remove because when nominations are full function doesn't fire
         return(
           <>
             <div className="nominee">

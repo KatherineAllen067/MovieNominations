@@ -69,7 +69,7 @@ function Main(){
         <Modal open={isOpen} onClose={()=>setIsOpen(false)}>
             <p>Your nominations are full!</p>
         </Modal>
-            <div className="nomList">
+            <div className="nominee__list">
                 {nominationList.map(n=>(
                 <NominationList 
                     key={uuid()} 
