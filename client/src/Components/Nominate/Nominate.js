@@ -11,7 +11,7 @@ function Nominate({ movie, movieHandler, nominationList }){
                 console.log("nominations full")
             }
         >
-        Nominate
+        Remove
         </button>
         </>
     );

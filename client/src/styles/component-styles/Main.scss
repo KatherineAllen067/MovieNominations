@@ -38,30 +38,21 @@
     }
 }
 
-.lowerPage{
-    justify-content: space-evenly;
-}
-
 .poster{
     width:150px;
     height:200px;
 }
 
-.nominate{
-    @include flex-align;
-    &__card{
-        width:15rem;
-        @include card-border;
-        @include flex-align;
-        padding: 0.5rem;
-    }
+.close{
+    width:2rem;
+    height:2rem;
+    border:none;
 }
 
 .delete{
     width:7rem;
     color:black;
     font-family: $medium;
-    background-color:lime;
     border-radius:1.5rem;
     padding:0.25rem;
 }
@@ -70,5 +61,25 @@
     font-family:$bold;
 }
 
+// .modal{
+//     background-color:grey;
+//     position: fixed;
+// 	width: 50%;
+//     height: 50%;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     border-radius: 1rem;
+//     z-index:5;
+// }
+.carousel-inner{
+    display:flex;
+}
 
-
+.nominee{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding:1rem;
+}
