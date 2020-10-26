@@ -4,9 +4,9 @@ import axios from "axios";
 import '../../styles/component-styles/Main.scss';
 import Result from '../Result/Result.js';
 import Search from '../Search/Search.js';
-// import NominationList from '../NominationList/NominationList.js';
+import NominationList from '../NominationList/NominationList.js';
 import DefaultPoster from '../../styles/assets/images/vhs-background.jpg';
-import Carousel from 'react-bootstrap/Carousel'
+import Modal from '../Modal/Modal.js';
 
 var request= "http://www.omdbapi.com/?s=";
 var KEY= "&apikey=1c650e1b";
@@ -18,16 +18,17 @@ function Main(){
     const [ searchResult, setSearchResult ] = useState([]); 
     //the list of nominations 
     const [ nominationList, setNominationList ] = useState([]);
-    console.log(nominationList)
-    
-    
+    //state for Modal
+    const [ isOpen, setIsOpen ] = useState(false);
+
+
+    //search for a movie title
     const findMovie = (event) =>{
         event.preventDefault();
         console.log(`submitting new title ${word}`)
         //make request with the search title
         axios.get(`${request}${word}${KEY}`)
             .then(res=>{
-                // console.log(res.data.Search)
                 //set the results to the data from the request
                 setSearchResult(res.data.Search || [])
                           
@@ -35,6 +36,7 @@ function Main(){
                 .catch(error=>{console.log("there is an error with search", error)})
             };               
         
+        //add a movie to your nomination list
         const addMovie=(id)=>{
             //create array to manipulate state
             let nominees= [...nominationList];
@@ -47,6 +49,7 @@ function Main(){
                 }      
         };
 
+        //removie a movie from your nomination list
         const removeMovie=(id)=>{
             //create array to manipulate state
             let nominees= [...nominationList];
@@ -63,32 +66,29 @@ function Main(){
 
     return(
         <>
-                <Carousel>
-                    {nominationList.map(n=>(
-                    <Carousel.Item 
-                    className="nominee"
-                    key={uuid()} >
-                        <img 
-                        src={n.Poster ==="N/A" ? DefaultPoster: n.Poster}
-                        alt="movie poster"/>
-                        <Carousel.Caption>
-                            {n.Title}
-                            {n.Year}
-                        </Carousel.Caption>
-                        <button
-                        className="delete"
-                        value={n.imdbID}
-                        onClick={ nominationList.length <= 4 ? ()=>removeMovie(n.imdbID) : console.log("nominations full") } >
-                        Remove
-                        </button>
-                    </Carousel.Item> ))}
-                </Carousel>
-            
+        <Modal open={isOpen} onClose={()=>setIsOpen(false)}>
+            <p>Your nominations are full!</p>
+        </Modal>
+            <div className="nomList">
+                {nominationList.map(n=>(
+                <NominationList 
+                    key={uuid()} 
+                    poster={n.Poster ==="N/A" ? DefaultPoster: n.Poster}
+                    title={n.Title}
+                    year={n.Year}
+                    id={n.imdbID}
+                    movieFunction={removeMovie}
+                    nominationList={nominationList}
+                    // showModal={()=>setIsOpen(true)}
+                /> ))}
+            </div>
+        
             <Search 
                 submitAction={findMovie}
                 movieSearch={word}
                 setMovieSearch={setWord}
             />
+
             <div className="result">
                 {searchResult.map(m=>(
                     <Result
@@ -99,7 +99,8 @@ function Main(){
                         poster={m.Poster ==="N/A" ?
                             DefaultPoster: m.Poster}
                         movieFunction={addMovie}  
-                        nominationList={nominationList}                   
+                        nominationList={nominationList}  
+                        showModal={()=>setIsOpen(true)}                 
                     />))}
             </div> 
         </>

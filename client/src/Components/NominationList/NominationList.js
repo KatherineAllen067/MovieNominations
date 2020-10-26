@@ -1,18 +1,24 @@
 import React from 'react';
-import Carousel from 'react-bootstrap/esm/Carousel';
 
-const NominationList = ({ movieFunction, poster, year, title, id, nominationList }) =>{
+function NominationList({ movieFunction, poster, year, title, id, nominationList, showModal}){
         //list of movies nominated
         //check remove because when nominations are full function doesn't fire
         return(
           <>
-            {/* <button
-                className="delete"
-                value={id}
-                onClick={ nominationList.length <= 4 ? ()=>movieFunction(id):
-                console.log("nominations full") } >
-            Remove
-            </button> */}
+            <div className="nominee">
+                <img 
+                src={poster}
+                alt="movie poster"
+                className="poster"/>
+                <h3>{title}</h3>
+                <span>{year}</span>
+                <button
+                    className="delete"
+                    value={id}
+                    onClick={ nominationList.length <= 4 ? ()=>movieFunction(id) :  console.log('movie list full') } >    
+                    Remove
+                </button> 
+            </div>
           </>
         );
 }
