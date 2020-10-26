@@ -15,7 +15,7 @@ function NominationList({ movieFunction, poster, year, title, id, nominationList
                 <button
                     className="delete"
                     value={id}
-                    onClick={ nominationList.length <= 4 ? ()=>movieFunction(id) :  console.log('movie list full') } >    
+                    onClick={ nominationList.length <= 5 ? ()=>movieFunction(id) :  console.log('movie list full') } >    
                     Remove
                 </button> 
             </div>
